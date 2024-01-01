@@ -1,0 +1,17 @@
+{# templates/chercheurs/register.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+    <div class="container mt-5">
+        <form method="post" action="{{ path('app_register') }}">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Register</button>
+            {{ form_end(form) }}
+        </form>
+    </div>
+{% endblock %}

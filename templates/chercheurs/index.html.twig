@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chercheurs{% endblock %}
+
+{% block body %}
+    <h1>List of Chercheurs</h1>
+    <div class="container mt-5">
+        <a href="{{ path('create-chercheur') }}" class="btn btn-primary">Create Chercheur</a>
+        
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Birth</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for chercheur in chercheurs %}
+                    <tr>
+                        <td>{{ chercheur.Nom }}</td>
+                        <td>{{ chercheur.Prenom }}</td>
+                        <td>{{ chercheur.Email }}</td>
+                        <td>{{ chercheur.Role }}</td>
+                        <td>{{ chercheur.Birth|date('Y-m-d') }}</td>
+                        <td>
+                            <a href="{{ path('edit-chercheur', {'id': chercheur.id}) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ path('delete-chercheur', {'id': chercheur.id}) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

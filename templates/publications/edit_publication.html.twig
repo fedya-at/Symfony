@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Publication{% endblock %}
+
+{% block body %}
+    <h1>Edit Publication</h1>
+    <div class="container mt-5">
+        <form method="post" action="{{ path('edit-publication', {'id': publication.id}) }}">
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block body %}
+    <h1>List of Projects</h1>
+    <div class="container mt-5">
+        <a href="{{ path('create-project') }}" class="btn btn-primary">Create Project</a>
+        
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date Debut</th>
+                    <th scope="col">Date Fin</th>
+                    <th scope="col">Avancement</th>
+                    <th scope="col">Chercheur</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.Titre }}</td>
+                        <td>{{ project.Description }}</td>
+                        <td>{{ project.dateDebut|date('Y-m-d') }}</td>
+                        <td>{{ project.DateFin|date('Y-m-d') }}</td>
+                        <td>{{ project.Avancement }}</td>
+                        <td> {% for chercheur in project.chercheurs %}
+                                {{ chercheur.Nom }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}</td>
+                        <td>
+                            <a href="{{ path('edit-project', {'id': project.id}) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ path('delete-project', {'id': project.id}) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

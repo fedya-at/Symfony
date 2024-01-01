@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publications{% endblock %}
+
+{% block body %}
+    <h1>List of scientific publications</h1>
+    <div class="container mt-5">
+        <a href="{{ path('create-publication') }}" class="btn btn-primary">Create Publication</a>
+        
+        <table class="table mt-3">
+            <!-- Table header here -->
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for publication in publications %}
+                    <tr>
+                        <td>{{ publication.Titre }}</td>
+                        <td>{{ publication.Auteur }}</td>
+                        <td>
+                            <a href="{{ path('edit-publication', {'id': publication.id}) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ path('delete-publication', {'id': publication.id}) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
