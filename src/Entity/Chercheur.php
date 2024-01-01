@@ -40,10 +40,14 @@ class Chercheur
     #[ORM\ManyToMany(targetEntity: Publication::class, inversedBy: 'chercheurs')]
     private Collection $Publications;
 
+    #[ORM\OneToMany(mappedBy: 'chercheur', targetEntity: Equipment::class)]
+    private Collection $equipment;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
         $this->Publications = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,6 +171,36 @@ class Chercheur
     public function removePublication(Publication $publication): static
     {
         $this->Publications->removeElement($publication);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equipment>
+     */
+    public function getEquipment(): Collection
+    {
+        return $this->equipment;
+    }
+
+    public function addEquipment(Equipment $equipment): static
+    {
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment->add($equipment);
+            $equipment->setChercheur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): static
+    {
+        if ($this->equipment->removeElement($equipment)) {
+            // set the owning side to null (unless already changed)
+            if ($equipment->getChercheur() === $this) {
+                $equipment->setChercheur(null);
+            }
+        }
 
         return $this;
     }

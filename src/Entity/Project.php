@@ -34,9 +34,13 @@ class Project
     #[ORM\ManyToMany(targetEntity: Chercheur::class, mappedBy: 'projects')]
     private Collection $chercheurs;
 
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Equipment::class)]
+    private Collection $equipment;
+
     public function __construct()
     {
         $this->chercheurs = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +130,36 @@ class Project
     {
         if ($this->chercheurs->removeElement($chercheur)) {
             $chercheur->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equipment>
+     */
+    public function getEquipment(): Collection
+    {
+        return $this->equipment;
+    }
+
+    public function addEquipment(Equipment $equipment): static
+    {
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment->add($equipment);
+            $equipment->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): static
+    {
+        if ($this->equipment->removeElement($equipment)) {
+            // set the owning side to null (unless already changed)
+            if ($equipment->getProject() === $this) {
+                $equipment->setProject(null);
+            }
         }
 
         return $this;

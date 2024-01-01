@@ -1,0 +1,39 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Chercheur{% endblock %}
+
+{% block body %}
+    <h1>Edit Chercheur</h1>
+    <div class="container mt-5">
+        <form method="post" action="{{ path('edit-chercheur', {'id': chercheur.id}) }}">
+            {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.Nom) }}
+                {{ form_widget(form.Nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Prenom) }}
+                {{ form_widget(form.Prenom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Email) }}
+                {{ form_widget(form.Email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Password) }}
+                {{ form_widget(form.Password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Role) }}
+                {{ form_widget(form.Role, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Birth) }}
+                {{ form_widget(form.Birth, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            {{ form_end(form) }}
+        </form>
+    </div>
+{% endblock %}

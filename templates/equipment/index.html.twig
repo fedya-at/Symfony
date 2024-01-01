@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipment{% endblock %}
+
+{% block body %}
+    <h1>List of Equipment</h1>
+    <div class="container mt-5">
+        <a href="{{ path('create-equipment') }}" class="btn btn-primary">Create Equipment</a>
+        
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Availability</th>
+                    <th scope="col">Chercheur</th>
+                    <th scope="col">project</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for equipment in equipments %}
+                    <tr>
+                        <td>{{ equipment.name }}</td>
+                        <td>{{ equipment.state }}</td>
+                        <td>{{ equipment.availability }}</td>
+                         <td> {% for chercheur in project.chercheurs %}
+                                {{ chercheur.Nom }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}</td>
+                        <td>{% for equipment in equipment.project %}
+                         {{ equipment.Titre }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}</td>
+                        <td>
+                            <a href="{{ path('edit-equipment', {'id': equipment.id}) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ path('delete-equipment', {'id': equipment.id}) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
